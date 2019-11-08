@@ -12,31 +12,29 @@ public class RadixSort extends SortAlg {
     }
 
     private void countSort(int list[], int exp) {
-        int output[] = new int[list.length]; // output array
+        int finalArray[] = new int[list.length];
         int count[] = new int[10];
 
-        // Store count of occurrences in count[]
+        // Number of occurrences in count array
         for (int i = 0; i < list.length; i++)
             count[(list[i] / exp) % 10]++;
 
-        // Change count[i] so that count[i] now contains
-        // actual position of this digit in output[]
+        // Set count[i] to real position used in finalArray
         for (int i = 1; i < 10; i++)
             count[i] += count[i - 1];
 
-        // Build the output array
+        // Build the final array
         for (int i = list.length - 1; i >= 0; i--) {
-            output[count[(list[i] / exp) % 10] - 1] = list[i];
+            finalArray[count[(list[i] / exp) % 10] - 1] = list[i];
+            // Increment count by -1
             count[(list[i] / exp) % 10]--;
         }
 
-        // Copy the output array to arr[], so that arr[] now
-        // contains sorted numbers according to curent digit
+        // Copies finalArray into list
         for (int i = 0; i < list.length; i++)
-            list[i] = output[i];
+            list[i] = finalArray[i];
     }
 
-    // The main function to that sorts arr[] of size n using
     // Radix Sort
     public void sort(int list[]) {
         int max = list[0];
@@ -49,11 +47,14 @@ public class RadixSort extends SortAlg {
     }
 
     private static void printArray(int[] arr) {
+        System.out.print("[");
         for (int i = 0; i < arr.length; i++)
-            System.out.print(arr[i] + " ");
-        System.out.println("");
+            if(i != arr.length - 1)
+                System.out.print(arr[i] + ", ");
+            else
+                System.out.print(arr[i]);
+        System.out.println("]");
     }
-
     public static void main(String[] args) {
         int[] list = {2, 4, 3, 6, 5, 6};
         SortAlg radixSort = new RadixSort();

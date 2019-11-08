@@ -5,7 +5,6 @@ Date: 11/5/2019
  */
 
 import edu.princeton.cs.algs4.StdIn;
-import java.util.Random;
 
 public class BirthdayProblem {
     public static void main(String[] args) {
@@ -19,15 +18,15 @@ public class BirthdayProblem {
         int counter = 0;
 
         for (int i = 0; i < REPETITIONS; i++) {
-            boolean[] exists = new boolean[N];
+            boolean[] birthday = new boolean[N];
             boolean isRepeated = false;
             while (!isRepeated) {
                 counter++;
                 int r = (int) (Math.random() * N);
-                if (exists[r])
+                if (birthday[r])
                     isRepeated = true;
                 else
-                    exists[r] = true;
+                    birthday[r] = true;
             }
         }
 

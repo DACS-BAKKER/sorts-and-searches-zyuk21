@@ -84,10 +84,14 @@ public class SortTestClient {
         System.out.println("Average Time Taken (microseconds): " + (totalTime) / REPETITIONS / 1000 + "\n");
     }
 
-    private static void printArray(int[] array){
-        for(int i = 0; i < array.length; i++)
-            System.out.print(array[i] + " ");
-        System.out.println("");
+    private static void printArray(int[] arr) {
+        System.out.print("[");
+        for (int i = 0; i < arr.length; i++)
+            if(i != arr.length - 1)
+                System.out.print(arr[i] + ", ");
+            else
+                System.out.print(arr[i]);
+        System.out.println("]");
     }
 
     public static void init() {

@@ -1,46 +1,60 @@
+/*
+Name: Alex Yuk
+File: Kendall Tau Distance
+Date: 11/6/2019
+ */
+
 import edu.princeton.cs.algs4.*;
 
 public class KendallTauDistance {
 
-    // return Kendall tau distance between two permutations
-    public static long distance(int[] a, int[] b) {
-        int n = a.length;
+    private static int N = 10;
 
-        int[] ainv = new int[n];
-        for (int i = 0; i < n; i++)
-            ainv[a[i]] = i;
+    // Returns Kendall Tau Distance of array a and array b
+    public static int kendallTauDistance(int[] a, int[] b) {
+        int[] aInversion = new int[N];
+        for (int i = 0; i < N; i++)
+            aInversion[a[i]] = i;
 
-        Integer[] bnew = new Integer[n];
-        for (int i = 0; i < n; i++)
-            bnew[i] = ainv[b[i]];
+        int[] bNew = new int[N];
+        for (int i = 0; i < N; i++)
+            bNew[i] = aInversion[b[i]];
 
-        return Inversions.count(bnew);
+        return (int) Inversions.count(bNew);
     }
 
 
-    // return a random permutation of size n
-    public static int[] permutation(int n) {
-        int[] a = new int[n];
-        for (int i = 0; i < n; i++)
-            a[i] = i;
-        StdRandom.shuffle(a);
-        return a;
+    private static void printArray(int[] arr) {
+        System.out.print("[");
+        for (int i = 0; i < arr.length; i++)
+            if(i != arr.length - 1)
+                System.out.print(arr[i] + ", ");
+            else
+                System.out.print(arr[i]);
+        System.out.println("]");
     }
-
 
     public static void main(String[] args) {
+        System.out.print("Enter array size\n? ");
+        N = StdIn.readInt();
 
-        // two random permutation of size n
-        int n = Integer.parseInt(args[0]);
-        int[] a = permutation(n);
-        int[] b = permutation(n);
+        // Randomly generates two arrays
+        int[] a = new int[N];
+        int[] b = new int[N];
 
+        for (int i = 0; i < N; i++) {
+            a[i] = i;
+            b[i] = i;
+        }
+        StdRandom.shuffle(a);
+        StdRandom.shuffle(b);
 
-        // print initial permutation
-        for (int i = 0; i < n; i++)
-            System.out.println(a[i] + " " + b[i]);
-        System.out.println();
+        System.out.println("Initial Permutations:");
+        System.out.print("Array a: ");
+        printArray(a);
+        System.out.print("Array b: ");
+        printArray(b);
 
-        System.out.println("inversions = " + distance(a, b));
+        System.out.println("Inversions: " + kendallTauDistance(a, b));
     }
 }
